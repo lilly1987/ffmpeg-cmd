@@ -1,5 +1,5 @@
 #$vcodec=h264_amf
-$vcodec=hevc_amf
+$vcodec="hevc_amf"
 [int]$size=720
 foreach ( $item in $args )
 {
