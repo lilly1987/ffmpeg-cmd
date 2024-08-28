@@ -9,6 +9,8 @@ foreach ( $item in $args )
 	$basename=($item).basename
 	$Extension=($item).Extension
 	
+	
+	
 	$result=.\ffprobe.exe -v error -show_entries stream=width,height,r_frame_rate -of default=noprint_wrappers=1 "$item"
 	#$result | get-member
 	$hash = @{}
@@ -28,8 +30,10 @@ foreach ( $item in $args )
 	
 	if( [int]$short -gt $size ){
 		#echo true
-		.\ffmpeg.exe -i "$item" -y -vf "scale='if(gt(iw\,ih),-2,$size)':'if(gt(iw\,ih),$size,-2)',setsar=1:1" -c:a copy -vcodec $vcodec "$directoryname\$BaseName-result$Extension"	
+		#.\ffmpeg.exe -i "$item" -y -vf "scale='if(gt(iw\,ih),-2,$size)':'if(gt(iw\,ih),$size,-2)',setsar=1:1" -c:a copy -vcodec $vcodec "$directoryname\$BaseName-result$Extension"	
+		.\ffmpeg.exe -i "$item" -y -movflags faststart -pix_fmt yuv420p -vf "scale='if(gt(iw\,ih),-2,$size)':'if(gt(iw\,ih),$size,-2)',setsar=1:1" -c:a copy -vcodec $vcodec "$directoryname\$BaseName-result.mp4"	
 	}else{
+		.\ffmpeg.exe -i "$item" -y -movflags faststart -pix_fmt yuv420p -vf "scale='if(gt(iw\,ih),-2,$short)':'if(gt(iw\,ih),$short,-2)',setsar=1:1" -c:a copy -vcodec $vcodec "$directoryname\$BaseName-result.mp4"	
 		#echo false		
 	}
 }
