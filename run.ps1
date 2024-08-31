@@ -30,6 +30,7 @@ foreach ( $item in $args )
 		#echo true
 		.\ffmpeg.exe -i "$item" -y -vf "scale='if(gt(iw\,ih),-2,$size)':'if(gt(iw\,ih),$size,-2)',setsar=1:1" -c:a copy -vcodec $vcodec "$directoryname\$BaseName-result$Extension"	
 	}else{
+		.\ffmpeg.exe -i "$item" -y -c:a copy -vcodec $vcodec "$directoryname\$BaseName-result$Extension"	
 		#echo false		
 	}
 }
