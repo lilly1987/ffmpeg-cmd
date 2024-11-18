@@ -9,8 +9,6 @@ foreach ( $item in $args )
 	$basename=($item).basename
 	$Extension=($item).Extension
 	
-	
-	
 	$result=.\ffprobe.exe -v error -show_entries stream=width,height,r_frame_rate -of default=noprint_wrappers=1 "$item"
 	#$result | get-member
 	$hash = @{}
